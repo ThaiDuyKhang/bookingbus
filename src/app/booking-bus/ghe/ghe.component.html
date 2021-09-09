@@ -1,0 +1,27 @@
+<ng-container *ngIf="!ghe.TrangThai; else gheDaDuocChon">
+  <button
+    class="btn-datghe border-0 position-relative d-inline-block"
+    (click)="chonGhe()"
+  >
+    <img
+      src="./assets/seat.svg"
+      class="ghe mb-4 position-relative"
+      [ngClass]="{ styleGheDangChon: status }"
+    />
+    <span class="soGhe" [ngClass]="{ soGheDaDat: status }">{{
+      ghe.SoGhe
+    }}</span>
+  </button>
+</ng-container>
+<ng-template #gheDaDuocChon>
+  <button
+    style="cursor: no-drop"
+    class="btn-datghe border-0 position-relative d-inline-block"
+  >
+    <img
+      src="./assets/seat.svg"
+      class="styleGheDaDat ghe mr-2 mb-4 position-relative"
+    />
+    <span class="soGhe" style="color: white">{{ ghe.SoGhe }}</span>
+  </button>
+</ng-template>
