@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ghe.component.scss']
 })
 export class GheComponent implements OnInit {
-  status:boolean = false;
+  status:boolean;
 
   @Input () ghe:any;
   @Output () statusGhe = new EventEmitter();
@@ -18,11 +18,10 @@ export class GheComponent implements OnInit {
 
   chonGhe(){
     if(this.status){
-     this.status = false;
+     this.status = !this.status ;
     } else {
       this.status = true;
     }  
     this.statusGhe.emit(this.status)
-
   }
 }

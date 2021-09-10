@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {GheComponent} from './../ghe/ghe.component';
 @Component({
   selector: 'app-danh-sach-ghe',
   templateUrl: './danh-sach-ghe.component.html',
@@ -44,13 +44,14 @@ export class DanhSachGheComponent implements OnInit {
     { SoGhe: 34, TenGhe: 'số 34', Gia: 100, TrangThai: false },
     { SoGhe: 35, TenGhe: 'số 35', Gia: 100, TrangThai: false },
   ];
-  date:number =Date.now();
+  // date:number = Date.now();
+  @ViewChildren (GheComponent) listGheComponent: QueryList<GheComponent> = new QueryList();
   soGheDaDat: number = 0;
   tongTien: number = 0;
   danhsachGheDaChon: any[] = [];
-  
+
   constructor() {
-    setInterval(() => {this.date = Date.now()}, 1);
+    // setInterval(() => {this.date = Date.now()}, 1);
   }
 
   ngOnInit(): void {}
@@ -70,5 +71,20 @@ export class DanhSachGheComponent implements OnInit {
       }
     }
   }
- 
+
+  huyGhe(ghe:any){
+    for (let index in this.danhsachGheDaChon) {
+      if (this.danhsachGheDaChon[index].SoGhe === ghe.SoGhe) {
+        this.danhsachGheDaChon.splice(parseInt(index), 1);
+        this.tongTien -= ghe.Gia;
+        this.soGheDaDat--;
+      }  
+    }
+    this.listGheComponent.forEach((gheDaChon:any)=>{
+      console.log(gheDaChon)
+      if(gheDaChon.ghe.SoGhe === ghe.SoGhe){
+        gheDaChon.status = false;
+      }
+    })
+}
 }
